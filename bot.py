@@ -6,10 +6,20 @@ import tweepy
 
 load_dotenv(find_dotenv())
 
+# Twitter security codes
 CONSUMER_KEY = getenv('TWITTER_CONSUMER_KEY')
 CONSUMER_SECRET = getenv('TWITTER_CONSUMER_SECRET')
 ACCESS_TOKEN = getenv('TWITTER_ACCESS_TOKEN')
 ACCESS_TOKEN_SECRET = getenv('TWITTER_ACCESS_TOKEN_SECRET')
+
+# Reddit security codes
+CLIENT_ID = getenv('REDDIT_CLIENT_ID')
+CLIENT_SECRET = getenv('REDDIT_CLIENT_SECRET')
+PASSWORD = getenv('REDDIT_PASSWORD')
+USERNAME = getenv('REDDIT_USERNAME')
+USER_AGENT = getenv('REDDIT_USER_AGENT')
+
+# The Reddit user the bot is overseeing
 TARGET_REDDIT_USER = getenv('TARGET_REDDIT_USER')
 
 
@@ -73,7 +83,11 @@ def get_update_from_reddit_user() -> str:
 	"""
 
 	# Create a Reddit instance with values saved in praw.ini file
-	reddit = praw.Reddit('bot')
+	reddit = praw.Reddit(client_id=CLIENT_ID,
+                         client_secret=CLIENT_ID,
+                         password=PASSWORD,
+                         username=USERNAME,
+                         user_agent = USER_AGENT)
 
 	# Retrieve latest submission
 	try: 
@@ -81,6 +95,8 @@ def get_update_from_reddit_user() -> str:
 	except StopIteration:
 		print('No submissions found or invalid Reddit username')
 		return None
+
+	print(submission.title)
 
 	if duplicate_post(submission.id):
 		return identify_update_within_post(submission)
@@ -106,6 +122,7 @@ def tweet_in_chunks(api, tweet_text):
 
 	# TODO: Parse out links in the tweet_text. If a link is seperated into different chunks, it won't
 	#       be useful. Note to self: Twitter shortens a link to 23 characters
+	# TODO: For image links, download images and tweet the downloaded image instead of a url link
 
 	chunk_end_index = len(tweet_text)
 	while chunk_end_index >= 0:
@@ -122,8 +139,8 @@ def tweeter(tweet_text):
 def main():
 	update_text = get_update_from_reddit_user()
 
-	if (update_text):
-		tweeter(update_text.strip())
+	# if (update_text):
+	# 	tweeter(update_text.strip())
 
 
 if __name__ == "__main__":
