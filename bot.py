@@ -82,11 +82,10 @@ def get_update_from_reddit_user() -> str:
 	If no change is detected, return None.
 	"""
 
-	# Create a Reddit instance with values saved in praw.ini file
-	reddit = praw.Reddit(client_id=CLIENT_ID,
-                         client_secret=CLIENT_ID,
-                         password=PASSWORD,
-                         username=USERNAME,
+	reddit = praw.Reddit(client_id = CLIENT_ID,
+                         client_secret = CLIENT_SECRET,
+                         password = PASSWORD,
+                         username = USERNAME,
                          user_agent = USER_AGENT)
 
 	# Retrieve latest submission
@@ -95,8 +94,6 @@ def get_update_from_reddit_user() -> str:
 	except StopIteration:
 		print('No submissions found or invalid Reddit username')
 		return None
-
-	print(submission.title)
 
 	if duplicate_post(submission.id):
 		return identify_update_within_post(submission)
@@ -139,8 +136,8 @@ def tweeter(tweet_text):
 def main():
 	update_text = get_update_from_reddit_user()
 
-	# if (update_text):
-	# 	tweeter(update_text.strip())
+	if (update_text):
+		tweeter(update_text.strip())
 
 
 if __name__ == "__main__":
