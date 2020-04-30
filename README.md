@@ -1,3 +1,4 @@
+
 # Reddit Edit Twitter Tipper
 
 A feature missing from Reddit is the ability to get mobile notifications for when another user you are following makes edits to his/her posts. Of course this is expected. Who would want to be notified when a user fixes a spelling error? However, in my situation, there is a user I'm following who is accustomed to updating his followers by appending new thoughts to his latest submitted post. Because his thoughts are critical (stock market related), I would like to be notified in a timely fashion. Also, it would be nice not having to refresh a Reddit page every so often.
@@ -5,6 +6,9 @@ A feature missing from Reddit is the ability to get mobile notifications for whe
 Reddit Edit Twitter Tipper is a bot that checks for updates from a specified user and tweets those updates. If the user submits a new post, a link to the new post is tweeted. If he/she makes an update to his/her latest post, the updated text is tweeted. 
 
 While Reddit Edit Twitter Tipper was designed for my unique problem, I hope it can be useful in other scenarios too. Please feel free to learn from it, use it, and/or improve it!
+
+### My Bot
+https://twitter.com/VS_Update_Bot
 
 ### Dependencies
   - PRAW - Reddit API wrapper for Python
